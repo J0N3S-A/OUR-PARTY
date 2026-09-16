@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intrinsic — True Motivation Academy</title>
-    <!-- Google Fonts -->
+    <title>OUR PARTY</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -15,13 +14,13 @@
             --surface-color: #161f2e;
             --surface-hover: #1f2c40;
             --border-color: #2a3a52;
-            --primary-accent: #f59e0b; /* Flame Amber */
-            --primary-hover: #d97706;
+            --primary-accent: #ee073d; /* Flame Amber */
+            --primary-hover: #6f19f9;
             --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --text-muted: #afc4e2;
             --danger: #ef4444;
-            --like-color: #10b981;
-            --dislike-color: #f43f5e;
+            --like-color: #2cb910;
+            --dislike-color: #be1834;
         }
 
         * {
@@ -56,12 +55,13 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            cursor: pointer;
         }
 
         .brand-logo {
             width: 32px;
             height: 32px;
-            background: linear-gradient(135deg, var(--primary-accent), #f97316);
+            background: linear-gradient(135deg, var(--primary-accent), #e4c746);
             border-radius: 8px;
             display: grid;
             place-items: center;
@@ -97,6 +97,8 @@
             position: sticky;
             top: 65px;
             z-index: 90;
+            display: flex;
+            flex-direction: column;
         }
 
         .horizontal-scroll {
@@ -117,7 +119,12 @@
             border-radius: 4px;
         }
 
-        .category-item, .page-item {
+        .pages-bar {
+            background-color: rgba(11, 15, 23, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .category-item {
             padding: 0.5rem 1.25rem;
             border-radius: 50px;
             background-color: transparent;
@@ -128,9 +135,13 @@
             cursor: pointer;
             white-space: nowrap;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            user-select: none;
         }
 
-        .category-item:hover, .page-item:hover {
+        .category-item:hover {
             border-color: var(--primary-accent);
             color: var(--text-main);
         }
@@ -141,15 +152,27 @@
             border-color: var(--primary-accent);
         }
 
-        .pages-bar {
-            background-color: rgba(11, 15, 23, 0.5);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        .node-admin-actions {
+            display: none;
+            margin-left: 8px;
+            gap: 6px;
+            align-items: center;
         }
 
-        .page-item.active {
-            background-color: var(--surface-hover);
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
+        .node-admin-actions.visible {
+            display: flex;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .node-admin-btn {
+            opacity: 0.6;
+            font-size: 0.85rem;
+            transition: opacity 0.2s;
+        }
+
+        .node-admin-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
         }
 
         /* Buttons & Forms */
@@ -205,6 +228,10 @@
             flex-grow: 1;
         }
 
+        .article-container {
+            margin-bottom: 3rem;
+        }
+
         .content-card {
             background-color: var(--surface-color);
             border: 1px solid var(--border-color);
@@ -228,6 +255,11 @@
             font-size: 2rem;
             margin-bottom: 1rem;
             line-height: 1.2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .page-text {
@@ -280,11 +312,11 @@
 
         /* Comments Section */
         .comments-section {
-            margin-top: 2rem;
             background-color: var(--surface-color);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 2rem;
+            margin-top: 1rem;
         }
 
         .comments-title {
@@ -300,7 +332,7 @@
             margin-bottom: 2rem;
         }
 
-        textarea, input[type="text"], input[type="url"] {
+        textarea, input[type="text"], input[type="url"], select {
             width: 100%;
             background-color: var(--bg-color);
             border: 1px solid var(--border-color);
@@ -311,7 +343,7 @@
             transition: border-color 0.2s;
         }
 
-        textarea:focus, input:focus {
+        textarea:focus, input:focus, select:focus {
             border-color: var(--primary-accent);
         }
 
@@ -341,6 +373,25 @@
             color: var(--primary-accent);
         }
 
+        .comment-actions {
+            display: flex;
+            gap: 0.4rem;
+            align-items: center;
+        }
+
+        .comment-btn-sm {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .comment-btn-sm:hover {
+            opacity: 1;
+        }
+
         /* Admin Controls Toolbar */
         .admin-controls {
             display: flex;
@@ -352,6 +403,7 @@
             border-radius: 8px;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
         }
 
         /* Modal */
@@ -379,17 +431,65 @@
         }
 
         .hidden { display: none !important; }
+        
+        /* Welcome Screen */
+        .welcome-screen {
+            text-align: center;
+            padding: 4rem 1rem;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .emoji-btn {
+            font-size: 2rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .emoji-btn:hover {
+            border-color: var(--primary-accent);
+            background: rgba(255,255,255,0.05);
+            transform: scale(1.05);
+        }
+
+        .emoji-preview-box {
+            background: var(--bg-color);
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-size: 1.5rem;
+            min-height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            letter-spacing: 4px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <header>
-        <div class="brand">
-            <div class="brand-logo">M</div>
+        <div class="brand" onclick="goHome()">
+            <div class="brand-logo">OP</div>
             <div>
-                <div class="brand-title">DRIVE</div>
-                <div class="brand-subtitle">True Motivation School</div>
+                <div class="brand-title">OUR</div>
+                <div class="brand-subtitle">PARTY</div>
             </div>
         </div>
         <div class="user-controls">
@@ -398,96 +498,112 @@
         </div>
     </header>
 
-    <!-- Horizontal Categories & Pages Nav -->
-    <div class="nav-container">
-        <!-- Categories Horizontal Scroll -->
-        <div class="horizontal-scroll" id="categoriesContainer">
-            <!-- Categories rendered dynamically -->
+    <div class="nav-container" id="navContainer">
         </div>
 
-        <!-- Pages Horizontal Scroll -->
-        <div class="horizontal-scroll pages-bar" id="pagesContainer">
-            <!-- Pages rendered dynamically -->
-        </div>
-    </div>
-
-    <!-- Main Content Area -->
     <main>
-        <!-- Admin Management Panel (Only visible for Admin role) -->
         <div id="adminPanel" class="admin-controls hidden">
             <span style="font-weight:700; font-size:0.9rem;">⚡ Admin Command Bar</span>
-            <div style="display:flex; gap:0.5rem;">
-                <button class="btn btn-primary" id="addCategoryBtn">+ New Category</button>
-                <button class="btn btn-primary" id="addPageBtn">+ New Page</button>
+            <div style="display:flex; gap:0.5rem; flex-wrap: wrap;">
+                <button class="btn btn-outline" id="addCategoryBtn" style="border-color: var(--primary-accent); color: var(--primary-accent);">+ New Category (Sibling)</button>
+                <button class="btn btn-outline" id="addPageBtn" style="border-color: var(--primary-hover); color: var(--primary-hover);">+ New Page (Child)</button>
+                <button class="btn btn-primary" id="addArticleBtn">+ New Article Here</button>
             </div>
         </div>
 
-        <!-- Dynamic Content Card -->
         <div id="contentDisplay">
-            <div style="text-align:center; padding: 4rem 1rem; color:var(--text-muted);">
-                Select a category and page above to start exploring true intrinsic motivation.
             </div>
-        </div>
-
-        <!-- Comments Section -->
-        <section id="commentsSection" class="comments-section hidden">
-            <h3 class="comments-title">Discussion & Insights</h3>
-            
-            <div class="comment-form">
-                <textarea id="commentInput" rows="3" placeholder="Share your intrinsic perspective... (Requires Sign-In)"></textarea>
-                <button id="submitCommentBtn" class="btn btn-primary" style="align-self: flex-end;">Post Comment</button>
-            </div>
-
-            <div class="comments-list" id="commentsList">
-                <!-- Comments rendered dynamically -->
-            </div>
-        </section>
     </main>
 
-    <!-- Modal for Category Create/Edit -->
-    <div class="modal" id="categoryModal">
+    <div class="modal" id="nodeModal">
         <div class="modal-content">
-            <h3 id="categoryModalTitle">Add Category</h3>
-            <input type="text" id="categoryNameInput" placeholder="Category Name (e.g. Autonomy & Mastery)">
+            <h3 id="nodeModalTitle">Add Item</h3>
+            <input type="text" id="nodeTitleInput" placeholder="Name (e.g. Technology, My Page)">
             <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
-                <button class="btn btn-outline" id="closeCatModal">Cancel</button>
-                <button class="btn btn-primary" id="saveCatBtn">Save Category</button>
+                <button class="btn btn-outline" onclick="closeModals()">Cancel</button>
+                <button class="btn btn-primary" id="saveNodeBtn">Save Item</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal for Page Create/Edit -->
-    <div class="modal" id="pageModal">
-        <div class="modal-content">
-            <h3 id="pageModalTitle">Add Page</h3>
-            <input type="text" id="pageTitleInput" placeholder="Page Title">
-            <input type="url" id="pageImageInput" placeholder="Image URL (Direct link ending in .jpg, .png...)">
-            <textarea id="pageContentInput" rows="6" placeholder="Write page content here... Explain why internal drive beats discipline."></textarea>
-            <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
-                <button class="btn btn-outline" id="closePageModal">Cancel</button>
-                <button class="btn btn-primary" id="savePageBtn">Save Page</button>
+    <div class="modal" id="nodeMoveModal">
+        <div class="modal-content" style="max-width: 450px;">
+            <h3>Move Section</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                Select target parent section. This section and all contained sub-pages & articles will move with it:
+            </p>
+            <select id="nodeMoveDestinationSelect"></select>
+            <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top: 1.5rem;">
+                <button class="btn btn-outline" onclick="closeModals()">Cancel</button>
+                <button class="btn btn-primary" id="confirmNodeMoveBtn">Confirm Move</button>
             </div>
         </div>
     </div>
 
-    <!-- Firebase SDK Modules -->
+    <div class="modal" id="articleModal">
+        <div class="modal-content">
+            <h3 id="articleModalTitle">Add Article</h3>
+            <input type="text" id="articleTitleInput" placeholder="Article Title">
+            <input type="url" id="articleImageInput" placeholder="Image URL (Optional)">
+            <textarea id="articleContentInput" rows="6" placeholder="Write article content here..."></textarea>
+            <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+                <button class="btn btn-outline" onclick="closeModals()">Cancel</button>
+                <button class="btn btn-primary" id="saveArticleBtn">Save Article</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="emojiModal">
+        <div class="modal-content" style="max-width: 380px; text-align: center;">
+            <h3>Select Icons (Max 5)</h3>
+            <div class="emoji-preview-box" id="emojiPreview">
+                <span style="color:var(--text-muted); font-size:0.9rem;">No icon selected</span>
+            </div>
+            <div class="emoji-grid">
+                <button class="emoji-btn" onclick="toggleEmoji('🔷')">🔷</button>
+                <button class="emoji-btn" onclick="toggleEmoji('🔹')">🔹</button>
+                <button class="emoji-btn" onclick="toggleEmoji('‼')">‼</button>
+                <button class="emoji-btn" onclick="toggleEmoji('💭')">💭</button>
+                <button class="emoji-btn" onclick="toggleEmoji('🔜')">🔜</button>
+                <button class="emoji-btn" onclick="toggleEmoji('🌐')">🌐</button>
+            </div>
+            <div style="display:flex; justify-content:space-between; gap:0.5rem; margin-top: 1rem;">
+                <button class="btn btn-outline" onclick="clearSelectedEmojis()">Clear All</button>
+                <div style="display:flex; gap:0.5rem;">
+                    <button class="btn btn-outline" onclick="closeModals()">Cancel</button>
+                    <button class="btn btn-primary" onclick="confirmEmojiSelection()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="moveModal">
+        <div class="modal-content" style="max-width: 450px;">
+            <h3>Move Article</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">Select the new destination page or category for this article:</p>
+            <select id="moveDestinationSelect"></select>
+            <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top: 1.5rem;">
+                <button class="btn btn-outline" onclick="closeModals()">Cancel</button>
+                <button class="btn btn-primary" id="confirmMoveBtn">Confirm Move</button>
+            </div>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        import { getFirestore, collection, doc, getDoc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, query, where, orderBy, serverTimestamp, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-        // Firebase Configuration (Extracted from your screenshot)
-        const firebaseConfig = {
-            apiKey: "AIzaSyAKTU5AWs20Ep7_23HCz6hqXqaASn_SZz4",
-            authDomain: "our-school-585fd.firebaseapp.com",
-            projectId: "our-school-585fd",
-            storageBucket: "our-school-585fd.firebasestorage.app",
-            messagingSenderId: "1058799296440",
-            appId: "1:1058799296440:web:4018915145043ddf10b94d",
-            measurementId: "G-FGM87QJBC7"
-        };
+     const firebaseConfig = {
+  apiKey: "AIzaSyAKTU5AWs20Ep7_23HCz6hqXqaASn_SZz4",
+  authDomain: "our-school-585fd.firebaseapp.com",
+  projectId: "our-school-585fd",
+  storageBucket: "our-school-585fd.firebasestorage.app",
+  messagingSenderId: "1058799296440",
+  appId: "1:1058799296440:web:4018915145043ddf10b94d",
+  measurementId: "G-FGM87QJ0C7"
+};
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -495,51 +611,62 @@
 
         // Application State
         let currentUser = null;
-        let userRole = 'user'; // 'user' or 'admin'
-        let categories = [];
-        let pages = [];
-        let activeCategoryId = null;
-        let activePageId = null;
+        let userRole = 'user';
+        
+        let oldCategories = [];
+        let allPages = [];
+        let nodes = []; 
+        let activePath = []; 
+        
+        let articlesUnsubscribe = null;
+        let commentsUnsubscribers = [];
+        
+        let editingNodeId = null;
+        let nodeParentTarget = null; 
+        
+        let editingArticleId = null;
+        let isEditingLegacyArticle = false;
+        
+        let nodeForEmoji = null;
+        let selectedEmojis = [];
+
+        let nodeToMoveId = null;
+
+        let articleToMoveId = null;
+        let articleToMoveIsLegacy = false;
+        let articleToMoveSourceId = null;
 
         // DOM Elements
         const authBtn = document.getElementById('authBtn');
         const roleBadge = document.getElementById('roleBadge');
         const adminPanel = document.getElementById('adminPanel');
-        const categoriesContainer = document.getElementById('categoriesContainer');
-        const pagesContainer = document.getElementById('pagesContainer');
+        const navContainer = document.getElementById('navContainer');
         const contentDisplay = document.getElementById('contentDisplay');
-        const commentsSection = document.getElementById('commentsSection');
-        const commentsList = document.getElementById('commentsList');
-        const commentInput = document.getElementById('commentInput');
-        const submitCommentBtn = document.getElementById('submitCommentBtn');
 
-        // Modals
-        const categoryModal = document.getElementById('categoryModal');
-        const pageModal = document.getElementById('pageModal');
-        let editingCatId = null;
-        let editingPageId = null;
+        // --- GLOBAL CLOSE MODALS ---
+        window.closeModals = () => {
+            document.getElementById('nodeModal').style.display = 'none';
+            document.getElementById('nodeMoveModal').style.display = 'none';
+            document.getElementById('articleModal').style.display = 'none';
+            document.getElementById('emojiModal').style.display = 'none';
+            document.getElementById('moveModal').style.display = 'none';
+        };
 
         // --- AUTHENTICATION ---
         authBtn.addEventListener('click', () => {
-            if (currentUser) {
-                signOut(auth);
-            } else {
-                signInWithPopup(auth, provider);
-            }
+            if (currentUser) signOut(auth);
+            else signInWithPopup(auth, provider);
         });
 
         onAuthStateChanged(auth, async (user) => {
             currentUser = user;
             if (user) {
                 authBtn.innerText = "Sign Out (" + user.displayName.split(' ')[0] + ")";
-                // Fetch User Role from Firestore 'users' collection
                 const userRef = doc(db, "users", user.uid);
                 const userSnap = await getDoc(userRef);
-                
                 if (userSnap.exists()) {
                     userRole = userSnap.data().role || 'user';
                 } else {
-                    // Create default user document
                     await setDoc(userRef, { email: user.email, role: 'user' });
                     userRole = 'user';
                 }
@@ -548,9 +675,7 @@
                 userRole = 'user';
                 authBtn.innerText = "Sign In with Gmail";
             }
-
             updateRoleUI();
-            if (activePageId) renderPageContent();
         });
 
         function updateRoleUI() {
@@ -561,286 +686,635 @@
                 roleBadge.classList.add('hidden');
                 adminPanel.classList.add('hidden');
             }
-            renderCategoriesNav();
-            renderPagesNav();
+            renderNav();
+            if (activePath.length > 0) loadArticles();
         }
 
-        // --- FIRESTORE REALTIME LISTENERS ---
-        // Fetch Categories
+        // --- HYBRID FIRESTORE FETCHING ---
         onSnapshot(collection(db, "categories"), (snapshot) => {
-            categories = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            renderCategoriesNav();
-            if (!activeCategoryId && categories.length > 0) {
-                selectCategory(categories[0].id);
-            }
+            oldCategories = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            mergeNodes();
         });
 
-        // Fetch Pages
         onSnapshot(collection(db, "pages"), (snapshot) => {
-            pages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            renderPagesNav();
-            if (activePageId) renderPageContent();
+            allPages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            mergeNodes();
         });
 
-        // --- RENDER FUNCTIONS ---
-        function renderCategoriesNav() {
-            categoriesContainer.innerHTML = '';
+        function mergeNodes() {
+            nodes = [
+                ...oldCategories.map(c => ({ id: c.id, title: c.name, icon: c.icon || '', parentId: c.parentId || null, isLegacyCategory: true })),
+                ...allPages.map(p => ({ ...p, icon: p.icon || '', parentId: p.parentId || p.categoryId || null }))
+            ];
             
-            categories.forEach(cat => {
-                const btn = document.createElement('div');
-                btn.className = `category-item ${cat.id === activeCategoryId ? 'active' : ''}`;
-                
-                let adminActions = '';
-                if (userRole === 'admin') {
-                    adminActions = ` <span style="margin-left:5px; opacity:0.6;" onclick="event.stopPropagation(); editCategory('${cat.id}', '${cat.name}')">✏️</span>
-                                     <span style="opacity:0.6;" onclick="event.stopPropagation(); deleteCategory('${cat.id}')">🗑️</span>`;
-                }
-
-                btn.innerHTML = `${cat.name} ${adminActions}`;
-                btn.onclick = () => selectCategory(cat.id);
-                categoriesContainer.appendChild(btn);
-            });
-        }
-
-        function selectCategory(catId) {
-            activeCategoryId = catId;
-            renderCategoriesNav();
+            renderNav();
             
-            // Filter pages for this category
-            const catPages = pages.filter(p => p.categoryId === catId);
-            if (catPages.length > 0) {
-                selectPage(catPages[0].id);
+            if (activePath.length === 0) {
+                renderWelcomeScreen();
             } else {
-                activePageId = null;
-                renderPagesNav();
-                contentDisplay.innerHTML = `<div style="text-align:center; padding: 4rem 1rem; color:var(--text-muted);">No pages in this category yet.</div>`;
-                commentsSection.classList.add('hidden');
+                const lastId = activePath[activePath.length - 1];
+                if (!nodes.find(n => n.id === lastId)) goHome();
+                else loadArticles();
             }
         }
 
-        function renderPagesNav() {
-            pagesContainer.innerHTML = '';
-            const filteredPages = pages.filter(p => p.categoryId === activeCategoryId);
+        window.goHome = () => {
+            activePath = [];
+            renderNav();
+            renderWelcomeScreen();
+            clearArticleListeners();
+        };
 
-            filteredPages.forEach(page => {
-                const btn = document.createElement('div');
-                btn.className = `page-item ${page.id === activePageId ? 'active' : ''}`;
+        function renderWelcomeScreen() {
+            contentDisplay.innerHTML = `
+                <div class="welcome-screen">
+                    <h1 style="color:var(--primary-accent); margin-bottom:1rem; font-size: 2.5rem;">Welcome to Omi</h1>
+                    <p style="color:var(--text-muted); font-size: 1.1rem; line-height:1.8; max-width:600px; margin:0 auto;">
+                        Select any section from the list above to start, or browse freely!
+                    </p>
+                </div>
+            `;
+            document.getElementById('addArticleBtn').style.display = 'none';
+        }
+
+        // --- DYNAMIC HIERARCHICAL NAVIGATION ---
+        function renderNav() {
+            navContainer.innerHTML = '';
+            let currentParentId = null;
+
+            for (let i = 0; i <= activePath.length; i++) {
+                const rowNodes = nodes.filter(n => n.parentId === currentParentId);
                 
-                let adminActions = '';
-                if (userRole === 'admin') {
-                    adminActions = ` <span style="margin-left:5px; opacity:0.6;" onclick="event.stopPropagation(); editPage('${page.id}')">✏️</span>
-                                     <span style="opacity:0.6;" onclick="event.stopPropagation(); deletePage('${page.id}')">🗑️</span>`;
+                if (rowNodes.length > 0) {
+                    const rowDiv = document.createElement('div');
+                    rowDiv.className = 'horizontal-scroll ' + (i > 0 ? 'pages-bar' : '');
+                    
+                    rowNodes.forEach(node => {
+                        const btn = document.createElement('div');
+                        const isActive = activePath[i] === node.id;
+                        btn.className = `category-item ${isActive ? 'active' : ''}`;
+                        
+                        let adminActionsHtml = '';
+                        if (userRole === 'admin') {
+                            adminActionsHtml = `
+                                <span class="node-admin-actions" id="actions-${node.id}">
+                                    <span class="node-admin-btn" onclick="event.stopPropagation(); openEmojiPicker('${node.id}')">😀</span>
+                                    <span class="node-admin-btn" onclick="event.stopPropagation(); openMoveNodeModal('${node.id}')">🚚</span>
+                                    <span class="node-admin-btn" onclick="event.stopPropagation(); editNode('${node.id}')">✏️</span>
+                                    <span class="node-admin-btn" onclick="event.stopPropagation(); deleteNode('${node.id}')">🗑️</span>
+                                </span>`;
+                        }
+
+                        const emojiDisplay = node.icon ? `<span class="category-icon">${node.icon}</span> ` : '';
+                        btn.innerHTML = `${emojiDisplay}<span>${node.title}</span> ${adminActionsHtml}`;
+                        
+                        // Click and Double-Click Handler with a 1.5-second window
+                        if (userRole === 'admin') {
+                            let clickTimer = null;
+                            btn.onclick = (e) => {
+                                if (e.target.closest('.node-admin-actions')) return;
+                                
+                                if (clickTimer === null) {
+                                    clickTimer = setTimeout(() => {
+                                        clickTimer = null;
+                                        selectNode(node.id, i);
+                                    }, 1500);
+                                } else {
+                                    clearTimeout(clickTimer);
+                                    clickTimer = null;
+                                    const actionSpan = btn.querySelector('.node-admin-actions');
+                                    if (actionSpan) actionSpan.classList.toggle('visible');
+                                }
+                            };
+                        } else {
+                            btn.onclick = () => selectNode(node.id, i);
+                        }
+
+                        rowDiv.appendChild(btn);
+                    });
+                    navContainer.appendChild(rowDiv);
                 }
 
-                btn.innerHTML = `${page.title} ${adminActions}`;
-                btn.onclick = () => selectPage(page.id);
-                pagesContainer.appendChild(btn);
+                if (i < activePath.length) {
+                    currentParentId = activePath[i];
+                } else {
+                    break;
+                }
+            }
+            
+            if(activePath.length > 0 && userRole === 'admin') {
+                document.getElementById('addArticleBtn').style.display = 'inline-flex';
+            } else {
+                document.getElementById('addArticleBtn').style.display = 'none';
+            }
+        }
+
+        function selectNode(nodeId, depthIndex) {
+            activePath = activePath.slice(0, depthIndex);
+            activePath.push(nodeId);
+            renderNav();
+            loadArticles();
+        }
+
+        function clearArticleListeners() {
+            if (articlesUnsubscribe) articlesUnsubscribe();
+            commentsUnsubscribers.forEach(unsub => unsub());
+            commentsUnsubscribers = [];
+        }
+
+        // --- ARTICLES SYSTEM ---
+        function loadArticles() {
+            const activeNodeId = activePath[activePath.length - 1];
+            const activeNode = nodes.find(n => n.id === activeNodeId);
+            if (!activeNode) return;
+
+            clearArticleListeners();
+            contentDisplay.innerHTML = '';
+
+            // 1. Render Legacy Content
+            if (activeNode.content) {
+                renderArticleCard(activeNode, activeNodeId, true, contentDisplay);
+            }
+
+            const newArticlesContainer = document.createElement('div');
+            contentDisplay.appendChild(newArticlesContainer);
+
+            // 2. Fetch New Articles from subcollection
+            const articlesQ = query(collection(db, "pages", activeNodeId, "articles"), orderBy("createdAt", "desc"));
+            
+            articlesUnsubscribe = onSnapshot(articlesQ, (snapshot) => {
+                newArticlesContainer.innerHTML = '';
+                if (snapshot.empty && !activeNode.content) {
+                    newArticlesContainer.innerHTML = `<div style="text-align:center; padding: 4rem 1rem; color:var(--text-muted);">No articles in this section yet.</div>`;
+                    return;
+                }
+
+                snapshot.forEach(docSnap => {
+                    const article = { id: docSnap.id, ...docSnap.data() };
+                    renderArticleCard(article, activeNodeId, false, newArticlesContainer);
+                });
             });
         }
 
-        function selectPage(pageId) {
-            activePageId = pageId;
-            renderPagesNav();
-            renderPageContent();
-            loadComments(pageId);
-        }
+        function renderArticleCard(article, pageId, isLegacy, targetContainer) {
+            const isLiked = article.likedBy?.includes(currentUser?.uid);
+            const isDisliked = article.dislikedBy?.includes(currentUser?.uid);
 
-        function renderPageContent() {
-            const page = pages.find(p => p.id === activePageId);
-            if (!page) return;
+            const container = document.createElement('div');
+            container.className = 'article-container';
+            
+            let adminActions = '';
+            if (userRole === 'admin') {
+                adminActions = `
+                    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                        <button class="btn btn-outline" style="padding:0.3rem 0.6rem;" onclick="openMoveModal('${article.id}', ${isLegacy})">Move</button>
+                        <button class="btn btn-outline" style="padding:0.3rem 0.6rem;" onclick="editArticle('${article.id}', ${isLegacy})">Edit</button>
+                        <button class="btn btn-danger" style="padding:0.3rem 0.6rem;" onclick="deleteArticle('${article.id}', ${isLegacy})">Delete</button>
+                    </div>`;
+            }
 
-            const isLiked = page.likedBy?.includes(currentUser?.uid);
-            const isDisliked = page.dislikedBy?.includes(currentUser?.uid);
-
-            contentDisplay.innerHTML = `
+            container.innerHTML = `
                 <div class="content-card">
-                    ${page.imageUrl ? `<img src="${page.imageUrl}" class="page-hero-img" alt="${page.title}">` : ''}
+                    ${article.imageUrl ? `<img src="${article.imageUrl}" class="page-hero-img" alt="${article.title}">` : ''}
                     <div class="page-body">
-                        <h1 class="page-title">${page.title}</h1>
-                        <div class="page-text">${page.content}</div>
+                        <div class="page-title">
+                            <span>${article.title}</span>
+                            ${adminActions}
+                        </div>
+                        <div class="page-text">${article.content}</div>
                         
                         <div class="interaction-bar">
                             <div class="vote-buttons">
-                                <button class="vote-btn ${isLiked ? 'liked' : ''}" id="likeBtn">
-                                    👍 <span>${page.likedBy?.length || 0}</span>
+                                <button class="vote-btn ${isLiked ? 'liked' : ''}" onclick="handleVote('like', '${article.id}', '${pageId}', ${isLegacy})">
+                                    👍 <span>${article.likedBy?.length || 0}</span>
                                 </button>
-                                <button class="vote-btn ${isDisliked ? 'disliked' : ''}" id="dislikeBtn">
-                                    👎 <span>${page.dislikedBy?.length || 0}</span>
+                                <button class="vote-btn ${isDisliked ? 'disliked' : ''}" onclick="handleVote('dislike', '${article.id}', '${pageId}', ${isLegacy})">
+                                    👎 <span>${article.dislikedBy?.length || 0}</span>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="comments-section">
+                    <h4 class="comments-title">Comments</h4>
+                    <div class="comment-form">
+                        <textarea id="commentInput_${article.id}" rows="2" placeholder="Add a comment..."></textarea>
+                        <button class="btn btn-primary" style="align-self: flex-end;" onclick="postComment('${article.id}', '${pageId}', ${isLegacy})">Post Comment</button>
+                    </div>
+                    <div class="comments-list" id="commentsList_${article.id}">
+                        <div style="color:var(--text-muted); font-size:0.9rem;">Loading comments...</div>
+                    </div>
+                </div>
             `;
+            
+            targetContainer.appendChild(container);
 
-            commentsSection.classList.remove('hidden');
+            const commentsRef = isLegacy 
+                ? collection(db, "pages", article.id, "comments")
+                : collection(db, "pages", pageId, "articles", article.id, "comments");
 
-            document.getElementById('likeBtn').onclick = () => handleVote('like', page);
-            document.getElementById('dislikeBtn').onclick = () => handleVote('dislike', page);
+            const commentsQ = query(commentsRef, orderBy("createdAt", "desc"));
+            const unsub = onSnapshot(commentsQ, (snap) => {
+                const listDiv = document.getElementById(`commentsList_${article.id}`);
+                if (!listDiv) return;
+                listDiv.innerHTML = '';
+                if (snap.empty) {
+                    listDiv.innerHTML = `<div style="color:var(--text-muted); font-size:0.9rem;">No comments yet.</div>`;
+                    return;
+                }
+                snap.forEach(cSnap => {
+                    const c = cSnap.data();
+                    const commentId = cSnap.id;
+                    const isAuthorOrAdmin = currentUser && (currentUser.uid === c.authorUid || userRole === 'admin');
+
+                    const card = document.createElement('div');
+                    card.className = 'comment-card';
+                    card.id = `comment_card_${commentId}`;
+
+                    let commentActionsHtml = '';
+                    if (isAuthorOrAdmin) {
+                        const escapedText = (c.text || '').replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/'/g, "\\'");
+                        commentActionsHtml = `
+                            <div class="comment-actions">
+                                <button class="comment-btn-sm" onclick="editComment('${commentId}', '${article.id}', '${pageId}', ${isLegacy}, '${escapedText}')" title="Edit">✏️</button>
+                                <button class="comment-btn-sm" onclick="deleteComment('${commentId}', '${article.id}', '${pageId}', ${isLegacy})" title="Delete">🗑️</button>
+                            </div>
+                        `;
+                    }
+
+                    card.innerHTML = `
+                        <div class="comment-header">
+                            <span class="comment-author">${c.authorName || 'Anonymous'}</span>
+                            <div style="display:flex; align-items:center; gap:0.75rem;">
+                                <span>${c.createdAt ? new Date(c.createdAt.toDate()).toLocaleString() : 'Just now'}</span>
+                                ${commentActionsHtml}
+                            </div>
+                        </div>
+                        <div id="comment_text_${commentId}">${c.text}</div>
+                    `;
+                    listDiv.appendChild(card);
+                });
+            });
+            commentsUnsubscribers.push(unsub);
         }
 
-        // --- VOTING SYSTEM ---
-        async function handleVote(type, page) {
-            if (!currentUser) {
-                alert("Please sign in with Gmail to like or dislike.");
+        // --- VOTES & COMMENTS SYSTEM ---
+        window.handleVote = async (type, articleId, pageId, isLegacy) => {
+            if (!currentUser) return alert("Please sign in to vote.");
+            const articleRef = isLegacy ? doc(db, "pages", articleId) : doc(db, "pages", pageId, "articles", articleId);
+            const uid = currentUser.uid;
+            const articleSnap = await getDoc(articleRef);
+            if(!articleSnap.exists()) return;
+            const data = articleSnap.data();
+            const likedBy = data.likedBy || [];
+            const dislikedBy = data.dislikedBy || [];
+            if (type === 'like') {
+                if (likedBy.includes(uid)) await updateDoc(articleRef, { likedBy: arrayRemove(uid) });
+                else await updateDoc(articleRef, { likedBy: arrayUnion(uid), dislikedBy: arrayRemove(uid) });
+            } else {
+                if (dislikedBy.includes(uid)) await updateDoc(articleRef, { dislikedBy: arrayRemove(uid) });
+                else await updateDoc(articleRef, { dislikedBy: arrayUnion(uid), likedBy: arrayRemove(uid) });
+            }
+        };
+
+        window.postComment = async (articleId, pageId, isLegacy) => {
+            if (!currentUser) return alert("Please sign in to comment.");
+            const input = document.getElementById(`commentInput_${articleId}`);
+            const text = input.value.trim();
+            if (!text) return;
+            const commentsRef = isLegacy ? collection(db, "pages", articleId, "comments") : collection(db, "pages", pageId, "articles", articleId, "comments");
+            await addDoc(commentsRef, { text, authorName: currentUser.displayName, authorUid: currentUser.uid, createdAt: serverTimestamp() });
+            input.value = '';
+        };
+
+        window.deleteComment = async (commentId, articleId, pageId, isLegacy) => {
+            if (!confirm("Are you sure you want to delete this comment?")) return;
+            const commentRef = isLegacy 
+                ? doc(db, "pages", articleId, "comments", commentId) 
+                : doc(db, "pages", pageId, "articles", articleId, "comments", commentId);
+            await deleteDoc(commentRef);
+        };
+
+        window.editComment = (commentId, articleId, pageId, isLegacy, currentText) => {
+            const textDiv = document.getElementById(`comment_text_${commentId}`);
+            if (!textDiv) return;
+
+            const escapedOriginal = currentText.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/'/g, "\\'");
+            
+            textDiv.innerHTML = `
+                <div style="margin-top:0.5rem; display:flex; flex-direction:column; gap:0.5rem;">
+                    <textarea id="edit_input_${commentId}" rows="2">${currentText}</textarea>
+                    <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+                        <button class="btn btn-outline" style="padding:0.25rem 0.6rem; font-size:0.8rem;" onclick="cancelEditComment('${commentId}', '${escapedOriginal}')">Cancel</button>
+                        <button class="btn btn-primary" style="padding:0.25rem 0.6rem; font-size:0.8rem;" onclick="saveCommentEdit('${commentId}', '${articleId}', '${pageId}', ${isLegacy})">Save</button>
+                    </div>
+                </div>
+            `;
+        };
+
+        window.cancelEditComment = (commentId, originalText) => {
+            const textDiv = document.getElementById(`comment_text_${commentId}`);
+            if (textDiv) textDiv.innerText = originalText;
+        };
+
+        window.saveCommentEdit = async (commentId, articleId, pageId, isLegacy) => {
+            const input = document.getElementById(`edit_input_${commentId}`);
+            if (!input) return;
+            const newText = input.value.trim();
+            if (!newText) return alert("Comment cannot be empty.");
+
+            const commentRef = isLegacy 
+                ? doc(db, "pages", articleId, "comments", commentId) 
+                : doc(db, "pages", pageId, "articles", articleId, "comments", commentId);
+
+            await updateDoc(commentRef, { text: newText });
+        };
+
+        // --- MULTI-EMOJI PICKER (MAX 5) ---
+        window.openEmojiPicker = (id) => {
+            nodeForEmoji = nodes.find(n => n.id === id);
+            if (!nodeForEmoji) return;
+            
+            selectedEmojis = nodeForEmoji.icon ? Array.from(nodeForEmoji.icon) : [];
+            updateEmojiPreview();
+            document.getElementById('emojiModal').style.display = 'flex';
+        };
+
+        window.toggleEmoji = (emojiChar) => {
+            if (selectedEmojis.length >= 5) {
+                alert("Maximum 5 icons allowed.");
+                return;
+            }
+            selectedEmojis.push(emojiChar);
+            updateEmojiPreview();
+        };
+
+        window.clearSelectedEmojis = () => {
+            selectedEmojis = [];
+            updateEmojiPreview();
+        };
+
+        function updateEmojiPreview() {
+            const previewDiv = document.getElementById('emojiPreview');
+            if (previewDiv) {
+                if (selectedEmojis.length === 0) {
+                    previewDiv.innerHTML = `<span style="color:var(--text-muted); font-size:0.9rem;">No icon selected</span>`;
+                } else {
+                    previewDiv.innerHTML = selectedEmojis.map((e, idx) => `
+                        <span style="cursor:pointer;" onclick="removeEmojiAtIndex(${idx})" title="Click to remove">${e}</span>
+                    `).join('');
+                }
+            }
+        }
+
+        window.removeEmojiAtIndex = (index) => {
+            selectedEmojis.splice(index, 1);
+            updateEmojiPreview();
+        };
+
+        window.confirmEmojiSelection = async () => {
+            if (!nodeForEmoji) return;
+            const emojiString = selectedEmojis.join('');
+            const ref = nodeForEmoji.isLegacyCategory ? doc(db, "categories", nodeForEmoji.id) : doc(db, "pages", nodeForEmoji.id);
+            await updateDoc(ref, { icon: emojiString });
+            closeModals();
+        };
+
+        // --- ADMIN CRUD: SECTION NODES & DIRECTORY MOVE ---
+        document.getElementById('addCategoryBtn').onclick = () => {
+            editingNodeId = null;
+            nodeParentTarget = null;
+            if (activePath.length > 0) {
+                const activeId = activePath[activePath.length - 1];
+                const activeNode = nodes.find(n => n.id === activeId);
+                if (activeNode) nodeParentTarget = activeNode.parentId;
+            }
+            document.getElementById('nodeModalTitle').innerText = "Add New Category (Sibling)";
+            document.getElementById('nodeTitleInput').value = "";
+            document.getElementById('nodeModal').style.display = "flex";
+        };
+
+        document.getElementById('addPageBtn').onclick = () => {
+            editingNodeId = null;
+            nodeParentTarget = activePath.length > 0 ? activePath[activePath.length - 1] : null;
+            document.getElementById('nodeModalTitle').innerText = "Add New Page (Child)";
+            document.getElementById('nodeTitleInput').value = "";
+            document.getElementById('nodeModal').style.display = "flex";
+        };
+
+        window.editNode = (id) => {
+            const node = nodes.find(n => n.id === id);
+            if (!node) return;
+            editingNodeId = id;
+            document.getElementById('nodeModalTitle').innerText = "Edit Item";
+            document.getElementById('nodeTitleInput').value = node.title;
+            document.getElementById('nodeModal').style.display = "flex";
+        };
+
+        window.deleteNode = async (id) => {
+            if (confirm("Delete this section and everything inside it?")) {
+                const node = nodes.find(n => n.id === id);
+                if(node.isLegacyCategory) await deleteDoc(doc(db, "categories", id));
+                else await deleteDoc(doc(db, "pages", id));
+                if (activePath.includes(id)) goHome();
+            }
+        };
+
+        document.getElementById('saveNodeBtn').onclick = async () => {
+            const title = document.getElementById('nodeTitleInput').value.trim();
+            if (!title) return;
+            if (editingNodeId) {
+                const node = nodes.find(n => n.id === editingNodeId);
+                const ref = node.isLegacyCategory ? doc(db, "categories", editingNodeId) : doc(db, "pages", editingNodeId);
+                const updateData = node.isLegacyCategory ? { name: title } : { title: title };
+                await updateDoc(ref, updateData);
+            } else {
+                await addDoc(collection(db, "pages"), { title, icon: '', parentId: nodeParentTarget, createdAt: serverTimestamp() });
+            }
+            closeModals();
+        };
+
+        // --- DIRECTORY-LIKE MOVE FOR SECTION NODES ---
+        function getDescendantNodeIds(startNodeId) {
+            const descendants = new Set();
+            const queue = [startNodeId];
+            while (queue.length > 0) {
+                const currentId = queue.shift();
+                nodes.filter(n => n.parentId === currentId).forEach(child => {
+                    descendants.add(child.id);
+                    queue.push(child.id);
+                });
+            }
+            return descendants;
+        }
+
+        window.openMoveNodeModal = (nodeId) => {
+            nodeToMoveId = nodeId;
+            const targetNode = nodes.find(n => n.id === nodeId);
+            if (!targetNode) return;
+
+            const forbiddenIds = getDescendantNodeIds(nodeId);
+            forbiddenIds.add(nodeId);
+
+            const select = document.getElementById('nodeMoveDestinationSelect');
+            select.innerHTML = '<option value="root">-- Top Level (Root Category) --</option>';
+
+            nodes.forEach(n => {
+                if (!forbiddenIds.has(n.id)) {
+                    const opt = document.createElement('option');
+                    opt.value = n.id;
+                    opt.text = n.title || n.name;
+                    if (n.id === targetNode.parentId) opt.selected = true;
+                    select.appendChild(opt);
+                }
+            });
+
+            document.getElementById('nodeMoveModal').style.display = 'flex';
+        };
+
+        document.getElementById('confirmNodeMoveBtn').onclick = async () => {
+            if (!nodeToMoveId) return;
+            const selectedVal = document.getElementById('nodeMoveDestinationSelect').value;
+            const newParentId = selectedVal === 'root' ? null : selectedVal;
+
+            const targetNode = nodes.find(n => n.id === nodeToMoveId);
+            if (!targetNode) return;
+
+            if (targetNode.parentId === newParentId) {
+                closeModals();
                 return;
             }
 
-            const pageRef = doc(db, "pages", page.id);
-            const uid = currentUser.uid;
-            const likedBy = page.likedBy || [];
-            const dislikedBy = page.dislikedBy || [];
+            try {
+                const ref = targetNode.isLegacyCategory ? doc(db, "categories", nodeToMoveId) : doc(db, "pages", nodeToMoveId);
+                await updateDoc(ref, { parentId: newParentId });
+                closeModals();
+            } catch (err) {
+                console.error("Error moving section node:", err);
+                alert("Failed to move section.");
+            }
+        };
 
-            if (type === 'like') {
-                if (likedBy.includes(uid)) {
-                    await updateDoc(pageRef, { likedBy: arrayRemove(uid) });
+        // --- ADMIN CRUD: ARTICLES ---
+        document.getElementById('addArticleBtn').onclick = () => {
+            if (activePath.length === 0) return;
+            editingArticleId = null;
+            isEditingLegacyArticle = false;
+            document.getElementById('articleModalTitle').innerText = "Add New Article";
+            document.getElementById('articleTitleInput').value = "";
+            document.getElementById('articleImageInput').value = "";
+            document.getElementById('articleContentInput').value = "";
+            document.getElementById('articleModal').style.display = "flex";
+        };
+
+        window.editArticle = async (id, isLegacy) => {
+            isEditingLegacyArticle = isLegacy;
+            editingArticleId = id;
+            let articleRef = isLegacy ? doc(db, "pages", id) : doc(db, "pages", activePath[activePath.length - 1], "articles", id);
+            const docSnap = await getDoc(articleRef);
+            if(!docSnap.exists()) return;
+            const article = docSnap.data();
+            document.getElementById('articleModalTitle').innerText = "Edit Article";
+            document.getElementById('articleTitleInput').value = article.title;
+            document.getElementById('articleImageInput').value = article.imageUrl || "";
+            document.getElementById('articleContentInput').value = article.content;
+            document.getElementById('articleModal').style.display = "flex";
+        };
+
+        window.deleteArticle = async (id, isLegacy) => {
+            if (confirm("Delete this article?")) {
+                if(isLegacy) {
+                    await deleteDoc(doc(db, "pages", id));
+                    if (activePath.includes(id)) goHome();
                 } else {
-                    await updateDoc(pageRef, { 
-                        likedBy: arrayUnion(uid),
-                        dislikedBy: arrayRemove(uid)
-                    });
-                }
-            } else {
-                if (dislikedBy.includes(uid)) {
-                    await updateDoc(pageRef, { dislikedBy: arrayRemove(uid) });
-                } else {
-                    await updateDoc(pageRef, { 
-                        dislikedBy: arrayUnion(uid),
-                        likedBy: arrayRemove(uid)
-                    });
+                    await deleteDoc(doc(db, "pages", activePath[activePath.length - 1], "articles", id));
                 }
             }
-        }
-
-        // --- COMMENTS SYSTEM ---
-        function loadComments(pageId) {
-            const commentsQ = query(collection(db, "pages", pageId, "comments"), orderBy("createdAt", "desc"));
-            onSnapshot(commentsQ, (snapshot) => {
-                commentsList.innerHTML = '';
-                if (snapshot.empty) {
-                    commentsList.innerHTML = `<div style="color:var(--text-muted); font-size:0.9rem;">No comments yet. Start the conversation!</div>`;
-                    return;
-                }
-                snapshot.forEach(docSnap => {
-                    const c = docSnap.data();
-                    const card = document.createElement('div');
-                    card.className = 'comment-card';
-                    card.innerHTML = `
-                        <div class="comment-header">
-                            <span class="comment-author">${c.authorName}</span>
-                            <span>${c.createdAt ? new Date(c.createdAt.toDate()).toLocaleString() : 'Just now'}</span>
-                        </div>
-                        <div>${c.text}</div>
-                    `;
-                    commentsList.appendChild(card);
-                });
-            });
-        }
-
-        submitCommentBtn.onclick = async () => {
-            if (!currentUser) return alert("Please sign in to comment.");
-            const text = commentInput.value.trim();
-            if (!text || !activePageId) return;
-
-            await addDoc(collection(db, "pages", activePageId, "comments"), {
-                text: text,
-                authorName: currentUser.displayName,
-                authorUid: currentUser.uid,
-                createdAt: serverTimestamp()
-            });
-
-            commentInput.value = '';
         };
 
-        // --- ADMIN CRUD ACTIONS ---
-        // Category Modals & CRUD
-        document.getElementById('addCategoryBtn').onclick = () => {
-            editingCatId = null;
-            document.getElementById('categoryModalTitle').innerText = "Add Category";
-            document.getElementById('categoryNameInput').value = "";
-            categoryModal.style.display = "flex";
-        };
-
-        window.editCategory = (id, name) => {
-            editingCatId = id;
-            document.getElementById('categoryModalTitle').innerText = "Edit Category";
-            document.getElementById('categoryNameInput').value = name;
-            categoryModal.style.display = "flex";
-        };
-
-        window.deleteCategory = async (id) => {
-            if (confirm("Delete category and all associated views?")) {
-                await deleteDoc(doc(db, "categories", id));
-                if (activeCategoryId === id) activeCategoryId = null;
-            }
-        };
-
-        document.getElementById('saveCatBtn').onclick = async () => {
-            const name = document.getElementById('categoryNameInput').value.trim();
-            if (!name) return;
-
-            if (editingCatId) {
-                await updateDoc(doc(db, "categories", editingCatId), { name });
-            } else {
-                await addDoc(collection(db, "categories"), { name, createdAt: serverTimestamp() });
-            }
-            categoryModal.style.display = "none";
-        };
-
-        // Page Modals & CRUD
-        document.getElementById('addPageBtn').onclick = () => {
-            if (!activeCategoryId) return alert("Please create/select a category first.");
-            editingPageId = null;
-            document.getElementById('pageModalTitle').innerText = "Add Page";
-            document.getElementById('pageTitleInput').value = "";
-            document.getElementById('pageImageInput').value = "";
-            document.getElementById('pageContentInput').value = "";
-            pageModal.style.display = "flex";
-        };
-
-        window.editPage = (id) => {
-            const page = pages.find(p => p.id === id);
-            if (!page) return;
-            editingPageId = id;
-            document.getElementById('pageModalTitle').innerText = "Edit Page";
-            document.getElementById('pageTitleInput').value = page.title;
-            document.getElementById('pageImageInput').value = page.imageUrl || "";
-            document.getElementById('pageContentInput').value = page.content;
-            pageModal.style.display = "flex";
-        };
-
-        window.deletePage = async (id) => {
-            if (confirm("Are you sure you want to delete this page?")) {
-                await deleteDoc(doc(db, "pages", id));
-            }
-        };
-
-        document.getElementById('savePageBtn').onclick = async () => {
-            const title = document.getElementById('pageTitleInput').value.trim();
-            const imageUrl = document.getElementById('pageImageInput').value.trim();
-            const content = document.getElementById('pageContentInput').value.trim();
-
+        document.getElementById('saveArticleBtn').onclick = async () => {
+            const activeNodeId = activePath[activePath.length - 1];
+            if (!activeNodeId && !isEditingLegacyArticle) return;
+            const title = document.getElementById('articleTitleInput').value.trim();
+            const imageUrl = document.getElementById('articleImageInput').value.trim();
+            const content = document.getElementById('articleContentInput').value.trim();
             if (!title || !content) return alert("Title and Content are required.");
 
-            if (editingPageId) {
-                await updateDoc(doc(db, "pages", editingPageId), { title, imageUrl, content });
+            if (editingArticleId) {
+                const articleRef = isEditingLegacyArticle ? doc(db, "pages", editingArticleId) : doc(db, "pages", activeNodeId, "articles", editingArticleId);
+                await updateDoc(articleRef, { title, imageUrl, content });
             } else {
-                await addDoc(collection(db, "pages"), {
-                    categoryId: activeCategoryId,
-                    title,
-                    imageUrl,
-                    content,
-                    likedBy: [],
-                    dislikedBy: [],
-                    createdAt: serverTimestamp()
-                });
+                await addDoc(collection(db, "pages", activeNodeId, "articles"), { title, imageUrl, content, likedBy: [], dislikedBy: [], createdAt: serverTimestamp() });
             }
-            pageModal.style.display = "none";
+            closeModals();
         };
 
-        // Close Modal Controls
-        document.getElementById('closeCatModal').onclick = () => categoryModal.style.display = "none";
-        document.getElementById('closePageModal').onclick = () => pageModal.style.display = "none";
+        // --- MOVE ARTICLE FEATURE ---
+        window.openMoveModal = (articleId, isLegacy) => {
+            articleToMoveId = articleId;
+            articleToMoveIsLegacy = isLegacy;
+            articleToMoveSourceId = activePath[activePath.length - 1];
+
+            const select = document.getElementById('moveDestinationSelect');
+            select.innerHTML = '<option value="">-- Choose Target Section --</option>';
+            
+            nodes.forEach(node => {
+                const opt = document.createElement('option');
+                opt.value = node.id;
+                opt.text = node.title || node.name;
+                select.appendChild(opt);
+            });
+
+            document.getElementById('moveModal').style.display = 'flex';
+        };
+
+        document.getElementById('confirmMoveBtn').onclick = async () => {
+            const targetNodeId = document.getElementById('moveDestinationSelect').value;
+            if(!targetNodeId) return alert("Please select a destination.");
+            
+            if(targetNodeId === articleToMoveSourceId && !articleToMoveIsLegacy) {
+                alert("Article is already inside this section.");
+                return;
+            }
+
+            try {
+                if(articleToMoveIsLegacy) {
+                    const ref = doc(db, "pages", articleToMoveId);
+                    await updateDoc(ref, { parentId: targetNodeId });
+                } else {
+                    const oldRef = doc(db, "pages", articleToMoveSourceId, "articles", articleToMoveId);
+                    const newRef = doc(db, "pages", targetNodeId, "articles", articleToMoveId);
+                    
+                    const docSnap = await getDoc(oldRef);
+                    if(docSnap.exists()) {
+                        await setDoc(newRef, docSnap.data());
+                        
+                        const oldCommentsRef = collection(db, "pages", articleToMoveSourceId, "articles", articleToMoveId, "comments");
+                        const newCommentsRef = collection(db, "pages", targetNodeId, "articles", articleToMoveId, "comments");
+                        const commentsSnap = await getDocs(oldCommentsRef);
+                        
+                        const transferPromises = [];
+                        commentsSnap.forEach(cSnap => {
+                            transferPromises.push(setDoc(doc(newCommentsRef, cSnap.id), cSnap.data()));
+                            transferPromises.push(deleteDoc(doc(oldCommentsRef, cSnap.id)));
+                        });
+                        
+                        await Promise.all(transferPromises);
+                        await deleteDoc(oldRef);
+                    }
+                }
+                
+                closeModals();
+                if(activePath[activePath.length - 1] === articleToMoveSourceId) {
+                    loadArticles();
+                }
+            } catch (error) {
+                console.error("Error moving article:", error);
+                alert("Failed to move the article.");
+            }
+        };
+
     </script>
 </body>
 </html>
